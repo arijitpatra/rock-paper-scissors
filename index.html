@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Rock Paper Scissor</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="rps.css">
+    <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="animate.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body style="font-family: 'Ubuntu', sans-serif;background: linear-gradient(141deg, #c3c3c3 49%, #a5b5b7 49%, #e4e056 28%);background-repeat: no-repeat; height: 100vh;">
+
+    <div id="information-popup" class="overlay">
+        <div class="popup">
+            <h3>Beginner's Guide</h3>
+            <hr style="width: 80%;">
+            <a class="close" href="#">&times;</a>
+            <div class="content">
+                <h5 style="line-height: 25px;font-weight: 700;">Rock, Paper, Scissors is a very simple game we all play during our childhood. Now play against the computer. You can win medals too. <img src="smile.png" width="25px" style="vertical-align: text-bottom;"></h5>
+                <h5>Let's help you get started: </h5>
+                <ul style="margin-top: 20px;">
+                    <li>Choose any of the given options: Rock <img src="rock.png" width="35px;"> , Paper <img src="paper.png" width="35px;"> , Scissors <img src="scissors.png" width="35px;"> .</li>
+                    <li>Rock wins over Scissors and loses to Paper.</li>
+                    <li>Paper wins over Rock and loses to Scissors.</li>
+                    <li>Scissors wins over Paper and loses to Rock.</li>
+                    <li>Click on "New Round" button at the end of each round to continue.</li>
+                    <li>1 win = <img src="bronze.png" class="medal"> Bronze Medal.</li>
+                    <li>3 win = <img src="silver.png" class="medal"> Silver Medal.</li>
+                    <li>5 win = <img src="gold.png" class="medal"> Gold Medal.</li>
+                    <li>The player collecting all the 3 medals first, is the CHAMPION.</li>
+                </ul>
+                <h5>Ok, that's it. Phew!</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="container main"> 
+
+        <div class="row">
+            <div class="col-xs-12 header">
+                <h1 style="font-family: 'Gloria Hallelujah', cursive;text-align: center;margin-top: 50px;" class="animated bounce">Rock, Paper, Scissors <a href="#information-popup" style="position: relative;"><i class="fa fa-info-circle info" style="font-size: 16px;vertical-align: middle;cursor: pointer;color: #efefef;"></i><span class="info-help-text">Click <i class="fa fa-info-circle"></i> for information.</span></a></h1>
+                <hr style="border-top: 2px dashed #eee;width: 60%;">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <span>Round(s): </span>
+                <span id="rounds" style="font-weight: 700;">0</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-5 col-sm-5 col-lg-5 player-medal-div">
+                <span id="medal-player" class="collection"></span>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-lg-2 text-center score-div">
+                <span id="your-score">0</span>
+                <span> - </span>
+                <span id="computer-score">0</span>
+            </div>
+            <div class="col-xs-5 col-sm-5 col-lg-5 computer-medal-div">
+                <span id="medal-computer" class="collection"></span>
+            </div>
+        </div>
+
+        <div class="row both">
+            <div class="col-sm-12 col-lg-5 col-lg-offset-1 text-center animated fadeInDown you" id="you-id">
+                <span style="font-size: 3vh;line-height: 50px;">You <span style="font-size: 2vh;vertical-align: bottom;">(choose any one)</span></span>
+                <div id="player-border" class="row">
+                    <div class="col-xs-4" id="rock" onclick="rock()">
+                        <img src="rock.png" width="100px" id="rock-pic" class="player-choosing-option">
+                    </div>
+                    <div class="col-xs-4" id="paper" onclick="paper()">
+                        <img src="paper.png" width="100px" id="paper-pic" class="player-choosing-option">
+                    </div>
+                    <div class="col-xs-4" id="scissors" onclick="scissors()">
+                        <img src="scissors.png" width="100px" id="scissors-pic" class="player-choosing-option">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-12 col-lg-5 text-center animated fadeInDown computer" style="cursor: no-drop;" id="computer-id">
+                <span style="font-size: 3vh;line-height: 50px;">Computer</span>
+                <div id="computer-border" class="row">
+                    <div class="col-xs-12" id="computer-choice">
+                        <div id="cf4a">
+                            <img src="rock.png" id="rock-comp-pic" style="position: absolute;" />
+                            <img src="paper.png" id="paper-comp-pic" style="position: absolute;" />
+                            <img src="scissors.png" id="scissors-comp-pic" style="position: relative;" />
+                        </div>
+                    </div>
+                </div>
+            </div>   
+        </div>
+
+         <div class="row verdict-parent">       
+            <div class="col-xs-12 text-center verdict-div">
+                <span id="verdict"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <span id="refresh-div"></span>
+            </div>
+        </div>
+
+        <div class="row" style="position: relative;margin: 50px 0px 0px 0px;">
+            <div class="col-xs-12">
+                <hr style="width: 80%;border-color: #9c9c9c;margin-bottom: 10px;">
+                <span style="text-align: center;font-size: 11px;display:flex;justify-content: center;margin-bottom: 10px;"><a href="http://arijitpatra.in" target="_blank" style="text-decoration: none">Arijit Patra </a> | Rock, Paper, Scissors</span>
+            </div>
+        </div>
+
+    </div>  
+    
+    <script type="text/javascript" src="rps.js"></script>
+
+</body>
+</html>
