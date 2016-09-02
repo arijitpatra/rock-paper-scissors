@@ -146,7 +146,6 @@ ul {
 #newgame-btn {
     border: 5px solid #9ed82e;
     padding: 10px;
-    top: 55px;
     position: relative;
     background: #a7e62d;
     border-radius: 5px;
@@ -167,9 +166,10 @@ ul {
 }
 
 section {
-    background: linear-gradient(180deg, #fffefe -20%, #bddcd6 19%, #99d4d4 72%);
+    background: linear-gradient(141deg, #c3c3c3 50%, #e4e056 0%);
     background-repeat: no-repeat; 
-    height: 95vh;
+    min-height: 550px;
+    height: 99vh;
 }
 
 @keyframes cf4 {
@@ -210,6 +210,10 @@ section {
 
 #cf4a img:nth-of-type(3) {
     animation-delay: 0s;
+}
+
+#you-id img {
+    transition: all 200ms cubic-bezier(0.25, 0.39, 0.39, 2.01);
 }
 
 .player-medal-div {

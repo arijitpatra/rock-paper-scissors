@@ -24,11 +24,20 @@ function createRefreshBtn() {
     document.getElementById("refresh-btn").addEventListener("click",refresh);
 }
 
+function newGameBtn() {
+    var newGameBtnElement = document.createElement("button");
+    newGameBtnElement.setAttribute("id","newgame-btn");
+    newGameBtnElement.setAttribute("class", "animated pulse infinite");
+    document.getElementById("refresh-div").appendChild(newGameBtnElement);
+    document.getElementById("newgame-btn").innerHTML = "New Game";
+    document.getElementById("newgame-btn").addEventListener("click",newGame);
+}
+
 function rock() {
     var choice = "rock";
     userChoice(choice);
     removeCompPic();
-    createRefreshBtn();
+    // createRefreshBtn();
     document.getElementById("you-id").style.cursor = "no-drop";
     document.getElementById("rock-pic").style.cursor = "no-drop";
     document.getElementById("rock-pic").style.transform = "scale(1.0)";
@@ -39,7 +48,7 @@ function paper() {
     var choice = "paper";
     userChoice(choice);
     removeCompPic();
-    createRefreshBtn();
+    // createRefreshBtn();
     document.getElementById("you-id").style.cursor = "no-drop";
     document.getElementById("paper-pic").style.cursor = "no-drop";
     document.getElementById("paper-pic").style.transform = "scale(1.0)";
@@ -50,7 +59,7 @@ function scissors() {
     var choice = "scissors";
     userChoice(choice);
     removeCompPic();
-    createRefreshBtn();
+    // createRefreshBtn();
     document.getElementById("you-id").style.cursor = "no-drop";
     document.getElementById("scissors-pic").style.cursor = "no-drop";
     document.getElementById("scissors-pic").style.transform = "scale(1.0)";
@@ -64,26 +73,26 @@ function userChoice(choice) {
 
     switch (switchChoice) {
         case "rock": 
-            document.getElementById("paper").removeChild(document.getElementById("paper-pic"));
-            document.getElementById("paper").className = "";
-            document.getElementById("scissors").removeChild(document.getElementById("scissors-pic"));
-            document.getElementById("scissors").className = "";
-            document.getElementById("rock").className = "col-xs-12";
-            break;
+        document.getElementById("paper").removeChild(document.getElementById("paper-pic"));
+        document.getElementById("paper").className = "";
+        document.getElementById("scissors").removeChild(document.getElementById("scissors-pic"));
+        document.getElementById("scissors").className = "";
+        document.getElementById("rock").className = "col-xs-12";
+        break;
         case "paper":
-            document.getElementById("rock").removeChild(document.getElementById("rock-pic"));
-            document.getElementById("rock").className = "";
-            document.getElementById("scissors").removeChild(document.getElementById("scissors-pic"));
-            document.getElementById("scissors").className = "";
-            document.getElementById("paper").className = "col-xs-12";
-            break;
+        document.getElementById("rock").removeChild(document.getElementById("rock-pic"));
+        document.getElementById("rock").className = "";
+        document.getElementById("scissors").removeChild(document.getElementById("scissors-pic"));
+        document.getElementById("scissors").className = "";
+        document.getElementById("paper").className = "col-xs-12";
+        break;
         case "scissors":
-            document.getElementById("paper").removeChild(document.getElementById("paper-pic"));
-            document.getElementById("paper").className = "";
-            document.getElementById("rock").removeChild(document.getElementById("rock-pic"));
-            document.getElementById("rock").className = "";
-            document.getElementById("scissors").className = "col-xs-12";
-            break;
+        document.getElementById("paper").removeChild(document.getElementById("paper-pic"));
+        document.getElementById("paper").className = "";
+        document.getElementById("rock").removeChild(document.getElementById("rock-pic"));
+        document.getElementById("rock").className = "";
+        document.getElementById("scissors").className = "col-xs-12";
+        break;
     }
 
     computerChoice(choice);
@@ -121,6 +130,7 @@ function compareChoices(choice, randomChoice) {
     if(player == "rock" && computer == "rock" || player == "paper" && computer == "paper" || player == "scissors" && computer == "scissors") {
         console.log("TIE");
         document.getElementById("verdict").innerHTML = "Na Tera, Na Mera (Tie)";
+        createRefreshBtn();
         document.getElementById("verdict").setAttribute("class", "verdict-dashed");
         var audio = new Audio('tie.mp3');
         audio.play();
@@ -130,8 +140,7 @@ function compareChoices(choice, randomChoice) {
 
     if(player == "rock" && computer == "scissors" || player == "paper" && computer == "rock" || player == "scissors" && computer == "paper") {
         console.log("Player Won");
-        document.getElementById("verdict").innerHTML = "Yay! You Won";
-        document.getElementById("verdict").setAttribute("class", "verdict-dashed");
+        
         var audio = new Audio('win.mp3');
         audio.play();
         playerScoreTotal++;
@@ -143,21 +152,43 @@ function compareChoices(choice, randomChoice) {
         if (playerSet == 1) {
             medalElement.setAttribute("src", "bronze.png");
             document.getElementById("medal-player").appendChild(medalElement);
+            document.getElementById("verdict").innerHTML = "Yay! You Won";
+            createRefreshBtn();
+            document.getElementById("verdict").setAttribute("class", "verdict-dashed");
             // playerThreeSet = 0;
+        }
+        if (playerSet == 2) {
+            document.getElementById("verdict").innerHTML = "Yay! You Won";
+            createRefreshBtn();
+            document.getElementById("verdict").setAttribute("class", "verdict-dashed");
         }
         if (playerSet == 3) {
             medalElement.setAttribute("src", "silver.png");
             document.getElementById("medal-player").appendChild(medalElement);
+            document.getElementById("verdict").innerHTML = "Yay! You Won";
+            createRefreshBtn();
+            document.getElementById("verdict").setAttribute("class", "verdict-dashed");
             // playerThreeSet = 0;
         }
-        if (playerSet == 5) {
-            medalElement.setAttribute("src", "gold.png");
-            document.getElementById("medal-player").appendChild(medalElement);
-            // playerThreeSet = 0;
+        // if (playerSet == 5) {
+        //     medalElement.setAttribute("src", "gold.png");
+        //     document.getElementById("medal-player").appendChild(medalElement);
+        //     document.getElementById("verdict").innerHTML = "Yay! You Won";
+        // createRefreshBtn();
+        // document.getElementById("verdict").setAttribute("class", "verdict-dashed");
+        //     // playerThreeSet = 0;
+        // }
+        if (playerSet == 4) {
+            document.getElementById("verdict").innerHTML = "Yay! You Won";
+            createRefreshBtn();
+            document.getElementById("verdict").setAttribute("class", "verdict-dashed");
         }
         if (playerSet == 5 && computerSet < 5) {
-            document.getElementById("verdict").innerHTML = "You are the CHAMPION.";
-            document.getElementById("verdict").setAttribute("class", "verdict-dashed");
+            document.getElementById("verdict").innerHTML = "GAME OVER! <br> You are the CHAMPION.";
+            document.getElementById("verdict").setAttribute("class", "animated flash infinite");
+            medalElement.setAttribute("src", "gold.png");
+            document.getElementById("medal-player").appendChild(medalElement);
+            newGameBtn();
             //document.getElementById("refresh-btn").innerHTML = "New Game";
             //gameOver();
         }
@@ -165,8 +196,7 @@ function compareChoices(choice, randomChoice) {
 
     if (player == "rock" && computer == "paper" || player == "paper" && computer == "scissors" || player == "scissors" && computer == "rock") {
         console.log("Computer Won");
-        document.getElementById("verdict").innerHTML = "Awww! Computer Won";
-        document.getElementById("verdict").setAttribute("class", "verdict-dashed");
+        
         var audio = new Audio('lose.mp3');
         audio.play();
         computerScoreTotal++;
@@ -178,21 +208,43 @@ function compareChoices(choice, randomChoice) {
         if (computerSet == 1) {
             medalElement.setAttribute("src", "bronze.png");
             document.getElementById("medal-computer").appendChild(medalElement);
+            document.getElementById("verdict").innerHTML = "Awww! Computer Won";
+            createRefreshBtn();
+            document.getElementById("verdict").setAttribute("class", "verdict-dashed");
+            // playerThreeSet = 0;
+        }
+        if (computerSet == 2) {
+           document.getElementById("verdict").innerHTML = "Awww! Computer Won";
+           createRefreshBtn();
+           document.getElementById("verdict").setAttribute("class", "verdict-dashed");
             // playerThreeSet = 0;
         }
         if (computerSet == 3) {
             medalElement.setAttribute("src", "silver.png");
             document.getElementById("medal-computer").appendChild(medalElement);
+            document.getElementById("verdict").innerHTML = "Awww! Computer Won";
+            createRefreshBtn();
+            document.getElementById("verdict").setAttribute("class", "verdict-dashed");
             // playerThreeSet = 0;
         }
-        if (computerSet == 5) {
-            medalElement.setAttribute("src", "gold.png");
-            document.getElementById("medal-computer").appendChild(medalElement);
+        // if (computerSet == 5) {
+        //     medalElement.setAttribute("src", "gold.png");
+        //     document.getElementById("medal-computer").appendChild(medalElement);
+
+        //     // playerThreeSet = 0;
+        // }
+        if (computerSet == 4) {
+           document.getElementById("verdict").innerHTML = "Awww! Computer Won";
+           createRefreshBtn();
+           document.getElementById("verdict").setAttribute("class", "verdict-dashed");
             // playerThreeSet = 0;
         }
         if (computerSet == 5 && playerSet < 5) {
-            document.getElementById("verdict").innerHTML = "Computer is the CHAMPION.";
-            document.getElementById("verdict").setAttribute("class", "verdict-dashed");
+            document.getElementById("verdict").innerHTML = "GAME OVER! <br> Computer is the CHAMPION.";
+            document.getElementById("verdict").setAttribute("class", "animated flash infinite");
+            medalElement.setAttribute("src", "gold.png");
+            document.getElementById("medal-computer").appendChild(medalElement);
+            newGameBtn();
             //document.getElementById("refresh-btn").innerHTML = "New Game";
             //gameOver();
         }
@@ -211,7 +263,7 @@ function compareChoices(choice, randomChoice) {
 //     // document.getElementById("refresh-div").appendChild(btnElement);
 //     // document.getElementById("newgame-btn").addEventListener("click", newGame);
 //     // document.getElementById("newgame-btn").innerHTML = "New Game";
-    
+
 //     //document.getElementById("refresh-btn").style.display = "none";
 
 //     // var btnElement = document.createElement("button");
@@ -242,16 +294,21 @@ function compareChoices(choice, randomChoice) {
 //     newGame();
 // }
 
-// function newGame() {
-//     var collectedMedalElements = document.getElementsByClassName("collected-medal");
-//     for (var i = collectedMedalElements.length ; i--;) {
-//         collectedMedalElements[i].parentNode.removeChild(collectedMedalElements[i]);
-//     }
-//     document.getElementById("rounds").innerHTML = totalRounds;
-//     document.getElementById("your-score").innerHTML = playerScoreTotal;
-//     document.getElementById("computer-score").innerHTML = computerScoreTotal;
-//     refresh();
-// }
+function newGame() {
+    playerScoreTotal = 0;
+    computerScoreTotal = 0;
+    computerSet = 0;
+    playerSet = 0;
+    totalRounds = 0;
+    var collectedMedalElements = document.getElementsByClassName("collected-medal");
+    for (var i = collectedMedalElements.length ; i--;) {
+        collectedMedalElements[i].parentNode.removeChild(collectedMedalElements[i]);
+    }
+    document.getElementById("rounds").innerHTML = totalRounds;
+    document.getElementById("your-score").innerHTML = playerScoreTotal;
+    document.getElementById("computer-score").innerHTML = computerScoreTotal;
+    refresh();
+}
 
 
 function removeCompPic() {
@@ -264,7 +321,13 @@ function refresh() {
     document.getElementById("computer-choice").removeChild(document.getElementById("computer-choice-pic"));
 
     
-    document.getElementById("refresh-div").removeChild(document.getElementById("refresh-btn"));
+    if (document.getElementById("refresh-btn")) {
+        document.getElementById("refresh-div").removeChild(document.getElementById("refresh-btn"));
+    }
+
+    if (document.getElementById("newgame-btn")) {
+        document.getElementById("refresh-div").removeChild(document.getElementById("newgame-btn"));
+    }
     
 
     if (document.getElementById("rock-pic")) {
